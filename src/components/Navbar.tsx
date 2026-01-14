@@ -1,6 +1,5 @@
 import {useState} from "react";
 import axios from "axios";
-import logo from "../../public/logo.png";
 
 // Define a type for the movie to avoid using 'any'
 interface Movie {
