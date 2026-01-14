@@ -41,7 +41,7 @@ export default function MovieRow({title, theme, time}: { title: string, theme: s
     console.log(movieInfo.map(m => m.backdrop));
 
     return (
-        <div className="flex flex-col gap-8 w-full ml-20 pr-20 mt-32">
+        <div className="flex flex-col gap-8 w-full ml-20 pr-20 mt-20">
             <h1 className="text-3xl font-bold">{title}</h1>
             <div className="flex flex-row gap-8 w-full p-4 overflow-x-auto duration-150 overflow-x">
                 {movieInfo.map((movie: any) => (
