@@ -37,7 +37,7 @@ export default function MovieRow({title, theme, time}: { title: string, theme: s
         poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
         backdrop: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
     }));
-    
+
 
     return (
         <div className="flex flex-col gap-8 w-full ml-20 pr-20 mt-20">
