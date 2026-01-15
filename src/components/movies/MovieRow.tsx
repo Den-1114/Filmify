@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 
 export default function MovieRow({title, theme, time}: { title: string, theme: string, time: string }) {
     const headersTMDB = {
-        Authorization: `Bearer ${import.meta.env.TMDB_KEY}`,
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ`,
         "Content-Type": "application/json",
     };
 
