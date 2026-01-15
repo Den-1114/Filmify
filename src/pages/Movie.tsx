@@ -17,8 +17,8 @@ type Movie = {
 
 export default function Movie() {
     const {id} = useParams<{ id: string }>();
-        const headersTMDB = {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ`,
+    const headersTMDB = {
+        Authorization: `Bearer ${import.meta.env.TMDB_KEY}`,
         "Content-Type": "application/json",
     };
 
