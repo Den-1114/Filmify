@@ -4,9 +4,9 @@ import {useEffect, useState} from "react";
 
 export default function MovieRow({title, theme, time}: { title: string, theme: string, time: string }) {
     const headersTMDB = {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ",
-        "Content-Type": "text/plain",
-    }
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ`,
+        "Content-Type": "application/json",
+    };
 
     const [Movies, setMovies] = useState([]);
     let url = "";
@@ -37,8 +37,7 @@ export default function MovieRow({title, theme, time}: { title: string, theme: s
         poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
         backdrop: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
     }));
-
-    console.log(movieInfo.map(m => m.backdrop));
+    
 
     return (
         <div className="flex flex-col gap-8 w-full ml-20 pr-20 mt-20">

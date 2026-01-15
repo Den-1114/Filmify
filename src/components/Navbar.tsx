@@ -18,8 +18,8 @@ export default function Navbar() {
     // NOTE: In production, move this key to an environment variable (.env)
     const headersTMDB = {
         Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ",
-        "Content-Type": "application/json",
+            `Bearer ${import.meta.env.TMDB_KEY}`,
+            "Content-Type": "application/json",
     };
 
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {

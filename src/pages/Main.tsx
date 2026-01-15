@@ -1,6 +1,7 @@
 import "../App.css";
 import MovieRow from "../components/movies/MovieRow.tsx";
 import Navbar from "../components/Navbar.tsx";
+import Footer from "../components/Footer.tsx";
 
 function Main() {
     return (
@@ -13,6 +14,7 @@ function Main() {
             <MovieRow title="Now Playing" theme="now_playing" time="week"/>
             <MovieRow title="Upcoming" theme="upcoming" time="week"/>
             <MovieRow title="Popular" theme="popular" time="week"/>
+            <Footer />
         </div>
     );
 }

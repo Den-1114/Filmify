@@ -17,10 +17,10 @@ type Movie = {
 
 export default function Movie() {
     const {id} = useParams<{ id: string }>();
-    const headersTMDB = {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ",
-        "Content-Type": "text/plain",
-    }
+        const headersTMDB = {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2NjODEzMDk5NWExOGM3ZGJjYmRjOTUxMzViYjY4NSIsIm5iZiI6MTczNDM1NjYzNC42MTEsInN1YiI6IjY3NjAyZTlhZGY4MjljNDBiY2Q4ZGUwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y-sNKWYMQQLdIPO91aCqRMDR3M2E0WsvbI7SViHM2pQ`,
+        "Content-Type": "application/json",
+    };
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -66,6 +66,8 @@ export default function Movie() {
     const servers = [
         {name: "Server 1", id: "1"},
         {name: "Server 2", id: "2"},
+        {name: "Server 3", id: "3"},
+        {name: "Server 4", id: "4"}
     ];
 
     // Close dropdown if clicked outside
