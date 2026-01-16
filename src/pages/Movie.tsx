@@ -3,19 +3,24 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState, useRef} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {useContext} from "react";
+import {GlobalContext} from "../GlobalContext.ts";
 
 type Movie = {
-  id: number;
-  title: string;
-  overview: string;
-  backdrop_path: string;
-  poster_path: string;
-  vote_average: number;
-  release_date: string;
+    id: number;
+    title: string;
+    overview: string;
+    backdrop_path: string;
+    poster_path: string;
+    vote_average: number;
+    release_date: string;
 };
 
 
 export default function Movie() {
+    const context = useContext(GlobalContext);
+    if (!context) throw new Error("GlobalContext must be used inside GlobalProvider");
+    const {servers} = context;
     const {id} = useParams<{ id: string }>();
     const headersTMDB = {
         "Authorization": `Bearer ${import.meta.env.VITE_TMDB_KEY}`,
@@ -62,15 +67,6 @@ export default function Movie() {
         );
     }
 
-    // List of available servers
-    const servers = [
-        {name: "Server 1", id: "1"},
-        {name: "Server 2", id: "2"},
-        {name: "Server 3", id: "3"},
-        {name: "Server 4", id: "4"}
-    ];
-
-    // Close dropdown if clicked outside
 
     return (
         <div className="bg-[#121212] min-h-screen text-white pb-20">
