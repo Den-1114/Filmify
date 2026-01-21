@@ -105,5 +105,4 @@ src/
 | `VITE_TMDB_KEY` | Your TMDB API key |
 
 ## License
-
-MIT
+[![License](https://img.shields.io/badge/License-EPL%202.0-red.svg)](LICENSE)
