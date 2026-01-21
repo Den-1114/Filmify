@@ -1,73 +1,109 @@
-# React + TypeScript + Vite
+# TMDB Streaming Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern movie streaming platform frontend built with React, featuring content from The Movie Database (TMDB).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Browse trending, top rated, now playing, upcoming, and popular movies
+- Movie card carousel with horizontal scrolling
+- Responsive design with Tailwind CSS
+- Movie detail pages
+- Watch functionality
+- Clean, modern UI
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **React 19.2** - UI library
+- **TypeScript** - Type-safe development
+- **Vite** - Build tool and dev server
+- **Tailwind CSS 4.1** - Utility-first CSS framework
+- **React Router DOM 7.12** - Client-side routing
+- **Axios** - HTTP client for API requests
+- **Lucide React** - Icon library
+- **TMDB API** - Movie data source
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (v18 or higher)
+- npm or yarn
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies:
+```bash
+npm install
 ```
+
+3. Create a `.env` file in the root directory and add your TMDB API key:
+```
+VITE_TMDB_KEY=your_tmdb_api_key_here
+```
+
+To get a TMDB API key, sign up at [https://www.themoviedb.org/](https://www.themoviedb.org/)
+
+## Development
+
+Start the development server:
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+## Build
+
+Build for production:
+```bash
+npm run build
+```
+
+The built files will be in the `dist` directory.
+
+## Linting
+
+Run ESLint:
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── movies/
+│   │   ├── Card.tsx          # Movie card component
+│   │   └── MovieRow.tsx      # Movie row/carousel
+│   ├── Footer.tsx
+│   └── Navbar.tsx
+├── pages/
+│   ├── Main.tsx              # Home page with movie categories
+│   ├── Movie.tsx             # Movie detail page
+│   └── Watch.tsx             # Watch page
+├── GlobalContext.ts          # Global context for app state
+├── GlobalProvider.tsx         # Context provider
+├── App.tsx                   # Main app with routing
+└── main.tsx                  # Application entry point
+```
+
+## Routes
+
+- `/` - Home page with movie categories
+- `/video/:id/:mediaType` - Movie details page
+- `/watch/:id/:mediaType` - Watch page
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_TMDB_KEY` | Your TMDB API key |
+
+## License
+
+MIT
