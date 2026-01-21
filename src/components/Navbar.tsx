@@ -37,7 +37,12 @@ export default function Navbar() {
                     params: {query},
                 }
             );
-            setResults(response.data.results);
+
+            const filteredResults = response.data.results.filter(
+                (item: Movie) => item.media_type === "movie" || item.media_type === "tv"
+            );
+
+            setResults(filteredResults);
             console.log(response.data.results);
         } catch (err) {
             console.error(err);

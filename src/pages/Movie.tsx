@@ -132,7 +132,12 @@ export default function Movie() {
             </span>
                     </div>
 
-                    <p className="text-gray-300 text-lg mb-8 max-w-3xl leading-relaxed">
+                    <p className="text-gray-300 text-lg mb-8 max-w-3xl leading-relaxed overflow-hidden"
+                       style={{
+                           display: '-webkit-box',
+                           WebkitLineClamp: 1, // roughly 60px / line height
+                           WebkitBoxOrient: 'vertical',
+                       }}>
                         {movie.overview}
                     </p>
 
