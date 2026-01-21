@@ -7,6 +7,8 @@ interface Movie {
     title: string;
     poster_path: string | null;
     release_date: string;
+    name: string;
+    media_type: string;
 }
 
 export default function Navbar() {
@@ -29,13 +31,14 @@ export default function Navbar() {
 
         try {
             const response = await axios.get(
-                "https://api.themoviedb.org/3/search/movie",
+                "https://api.themoviedb.org/3/search/multi",
                 {
                     headers: headersTMDB,
                     params: {query},
                 }
             );
             setResults(response.data.results);
+            console.log(response.data.results);
         } catch (err) {
             console.error(err);
         } finally {
@@ -43,8 +46,8 @@ export default function Navbar() {
         }
     };
 
-    const handleResultClick = (id: number) => {
-        window.location.href = `/movie/${id}`;
+    const handleResultClick = (id: number, mediaType: string) => {
+        window.location.href = `/video/${id}/${mediaType}`;
         setQuery("");
         setResults([]);
         setIsFocused(false);
@@ -60,7 +63,7 @@ export default function Navbar() {
     return (
         // Main Navbar Container
         <nav
-            className="fixed top-0 w-full z-50 flex flex-row items-center justify-between px-6 py-4 bg-gradient-to-b from-black/90 to-transparent">
+            className="fixed top-0 w-full z-50 flex flex-row items-center justify-between px-6 py-4 bg-linear-to-b from-black/90 to-transparent">
 
             {/* Logo Area */}
             <button
@@ -184,10 +187,10 @@ export default function Navbar() {
                                     <div
                                         key={movie.id}
                                         className="flex items-center gap-4 p-3 hover:bg-white/5 transition cursor-pointer border-b border-white/5 last:border-none group/item"
-                                        onClick={() => handleResultClick(movie.id)}
+                                        onClick={() => handleResultClick(movie.id, movie.media_type)}
                                     >
                                         {/* Poster */}
-                                        <div className="w-10 h-14 flex-shrink-0 bg-zinc-800 rounded overflow-hidden">
+                                        <div className="w-10 h-14 shrink-0 bg-zinc-800 rounded overflow-hidden">
                                             {movie.poster_path ? (
                                                 <img
                                                     src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
@@ -204,14 +207,27 @@ export default function Navbar() {
 
                                         {/* Text Info */}
                                         <div className="flex flex-col text-left overflow-hidden">
-                      <span
-                          className="text-white text-sm font-medium truncate group-hover/item:text-red-500 transition-colors">
-                        {movie.title}
-                      </span>
+                                            <span
+                                                className="text-white text-sm font-medium truncate group-hover/item:text-red-500 transition-colors">
+                                                {movie.title}{movie.name}
+                                            </span>
                                             <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
-                           {movie.release_date ? movie.release_date.split("-")[0] : "TBA"}
-                        </span>
+                                            <span className="text-xs text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
+                                               {movie.release_date ? movie.release_date.split("-")[0] : "TBA"}
+                                            </span>
+                                                <span
+                                                    className="text-xs text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
+                                               {
+                                                   movie.media_type === "tv"
+                                                       ? "Series"
+                                                       : movie.media_type === "movie"
+                                                           ? "Movie"
+                                                           : movie.media_type === "person"
+                                                               ? "Person"
+                                                               : "Unknown"
+                                               }
+
+                                            </span>
                                             </div>
                                         </div>
                                     </div>

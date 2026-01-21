@@ -9,8 +9,8 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/movie/:id" element={<Movie />}/>
-                <Route path="/watch/:id" element={<Watch />} />
+                <Route path="/video/:id/:mediaType" element={<Movie />}/>
+                <Route path="/watch/:id/:mediaType" element={<Watch />} />
             </Routes>
         </>
     );

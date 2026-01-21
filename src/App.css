@@ -7,6 +7,7 @@ html, body, #root {
     radial-gradient(circle at top left, rgba(72, 61, 139, 0.3), transparent 40%),
     radial-gradient(circle at bottom right, rgba(0, 206, 209, 0.25), transparent 50%),
     linear-gradient(180deg, #121212 0%, #0a0a0a 100%);
+  max-height: 100vh;
 }
 
 .overflow-x {
