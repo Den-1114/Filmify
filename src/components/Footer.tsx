@@ -25,7 +25,7 @@ export default function Footer() {
 
                 {/* 3. Divider & Copyright */}
                 <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-                    <p>&copy; {new Date().getFullYear()} MovieName. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Filmify. All rights reserved.</p>
 
                     <div className="flex gap-4 mt-4 md:mt-0">
                         <a href="https://github.com/Den-1114/Filmify" className="hover:text-white transition">
