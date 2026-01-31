@@ -39,7 +39,7 @@ export default function HeroCarousel() {
             "https://api.themoviedb.org/3/trending/movie/day",
             {headers: headersTMDB}
         )
-            .then((res) => {setSlides(res.data.results.slice(0, 6))})
+            .then((res) => {setSlides(res.data.results)})
             .catch((err) => console.error(err));
 
         console.log(slides);
@@ -64,6 +64,14 @@ export default function HeroCarousel() {
         setIsAutoPlaying(false);
         setTimeout(() => setIsAutoPlaying(true), 10000);
     };
+
+    if (!slides) {
+        return (
+            <div className="bg-[#121212] min-h-screen text-white flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
+            </div>
+        )
+    }
 
     return (
         <section className="h-[80vh] w-full overflow-hidden bg-black text-white shadow-2xl mb-52">
