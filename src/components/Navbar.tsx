@@ -68,7 +68,7 @@ export default function Navbar() {
     return (
         // Main Navbar Container
         <nav
-            className="fixed top-0 w-full z-50 flex flex-row items-center justify-between px-6 py-4 bg-linear-to-b from-black/90 to-transparent">
+            className="fixed top-0 w-full z-50 flex flex-row items-center justify-between px-6 py-4 ">
 
             {/* Logo Area */}
             <button

@@ -3,6 +3,7 @@ import {useParams, Link} from "react-router-dom"
 import {useEffect, useState, useRef, useContext} from "react"
 import axios from "axios"
 import {GlobalContext} from "../GlobalContext.ts"
+import {Play} from "lucide-react";
 
 type Movie = {
     id: number
@@ -145,22 +146,18 @@ export default function Movie() {
 
                         {/* Watch Dropdown */}
                         <button
-                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                            className="flex items-center gap-2 bg-red-600 px-8 py-3.5 rounded-lg font-bold text-white hover:bg-red-700 transition"
-                        >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            Watch Now
-                            <svg className={`w - 4 h-4 ml-2 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold duration-200"
+                            onClick={() => {
+                                setIsDropdownOpen(!isDropdownOpen)
+                                setIsSeasonOpen(false)
+                                setIsEpisodeOpen(false)
+                            }}>
+                            <Play size={20} fill="currentColor"/> Play Now
                         </button>
 
                         {isDropdownOpen && (
                             <div
-                                className="absolute top-full mt-2 left-0 w-56 bg-[#18181b] border border-gray-700 rounded-xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-40 overflow-y-auto">
+                                className="absolute top-full mt-2 left-0 w-36 bg-[#18181b] border border-gray-700 rounded-xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-40 overflow-y-auto">
                                 {servers.map(server => {
 
                                     if (mediaType !== "tv") {
@@ -168,7 +165,9 @@ export default function Movie() {
                                                 key={server.id}
                                                 to={`/watch/${id}/${mediaType}/?serverId=${server.id}`}
                                                 className="px-4 py-3 hover:bg-gray-800 text-gray-200 hover:text-white transition"
-                                                onClick={() => setIsDropdownOpen(false)}
+                                                onClick={() => {
+                                                    setIsDropdownOpen(false)
+                                                }}
                                             >
                                                 {server.name}
                                             </Link>
@@ -193,7 +192,11 @@ export default function Movie() {
                         {mediaType === "tv" && (
                             <div className="relative">
                                 <button
-                                    onClick={() => setIsSeasonOpen(!isSeasonOpen)}
+                                    onClick={() => {
+                                        setIsDropdownOpen(false)
+                                        setIsSeasonOpen(!isSeasonOpen)
+                                        setIsEpisodeOpen(false)
+                                    }}
                                     className="flex items-center gap-2 bg-red-600 px-8 py-3.5 rounded-lg font-bold text-white hover:bg-red-700 transition"
                                 >
                                     Season {selectedSeason}
@@ -229,7 +232,11 @@ export default function Movie() {
                         {mediaType === "tv" && (
                             <div className="relative">
                                 <button
-                                    onClick={() => setIsEpisodeOpen(!isEpisodeOpen)}
+                                    onClick={() => {
+                                        setIsDropdownOpen(false)
+                                        setIsSeasonOpen(false)
+                                        setIsEpisodeOpen(!isEpisodeOpen)
+                                    }}
                                     className="flex items-center gap-2 bg-red-600 px-8 py-3.5 rounded-lg font-bold text-white hover:bg-red-700 transition"
                                 >
                                     Episode {selectedEpisode}

@@ -1,13 +1,13 @@
 html, body, #root {
-  min-height: 100%;
-  color: white;
-  overflow-x: hidden;
+    min-height: 100%;
+    color: white;
+    overflow-x: hidden;
 
-  background:
-    radial-gradient(circle at top left, rgba(72, 61, 139, 0.3), transparent 40%),
-    radial-gradient(circle at bottom right, rgba(0, 206, 209, 0.25), transparent 50%),
-    linear-gradient(180deg, #121212 0%, #0a0a0a 100%);
-  max-height: 100vh;
+    background: radial-gradient(at 0% 0%, rgba(72, 61, 139, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 206, 209, 0.15) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.03) 0px, transparent 50%),
+    linear-gradient(to bottom, #0f0f0f, #000000);
+    background-attachment: fixed;
 }
 
 .overflow-x {
