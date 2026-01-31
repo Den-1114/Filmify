@@ -23,7 +23,7 @@ export default function MovieRow({
         "Content-Type": "application/json",
     };
 
-    const [movies, setMovies] = useState<any[]>([]); // raw TMDB results
+    const [movies, setMovies] = useState<any[]>([]);
 
     let url = "";
     if (theme === "trending") {
@@ -43,19 +43,23 @@ export default function MovieRow({
         }
 
         fetchTrending();
-    }, [url]); // ✅ dependency fixed
+    }, [url]);
 
-    // map TMDB → your app format
     const movieInfo: Movie[] = movies.map((movie) => ({
         id: movie.id,
         title: movie.title,
         poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-        media_type: "movie", // ✅ add it here
+        media_type: "movie",
     }));
 
     return (
         <div className="flex flex-col gap-8 w-full ml-20 pr-20 mt-20">
-            <h1 className="text-3xl font-bold">{title}</h1>
+            <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
+                <span className="w-1 h-10 bg-red-600 rounded-full"></span>
+                {title}
+            </h2>
+
+
             <div className="flex flex-row gap-8 w-full p-4 overflow-x-auto duration-150 overflow-x">
                 {movieInfo.map((movie) => (
                     <Card

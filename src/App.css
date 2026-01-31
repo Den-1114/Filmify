@@ -39,3 +39,13 @@ html, body, #root {
 .overflow-x::-webkit-scrollbar-track {
     background-color: transparent; /* keeps the track invisible */
 }
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

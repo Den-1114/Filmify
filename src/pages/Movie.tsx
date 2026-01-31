@@ -3,8 +3,9 @@ import {useParams, Link} from "react-router-dom"
 import {useEffect, useState, useRef, useContext} from "react"
 import axios from "axios"
 import {GlobalContext} from "../GlobalContext.ts"
-import {Play} from "lucide-react";
-
+import {Play, Star, Calendar} from "lucide-react";
+import MovieRowBasic from "../components/movies/MovieRowBasic.tsx";
+import CastSection from "../components/movies/CrewView.tsx";
 type Movie = {
     id: number
     title: string
@@ -15,6 +16,7 @@ type Movie = {
     release_date: string
     number_of_episodes: number
     number_of_seasons: number
+    media_type: string
 }
 
 type Episode = {
@@ -22,6 +24,8 @@ type Episode = {
     episode_number: number
     name: string
 }
+
+
 
 export default function Movie() {
     const context = useContext(GlobalContext)
@@ -35,8 +39,11 @@ export default function Movie() {
         "Content-Type": "application/json",
     }
 
-    const [movie, setMovie] = useState<Movie | null>(null)
+    const [movie, setMovie] = useState<Movie>()
     const [episodes, setEpisodes] = useState<Episode[]>([])
+    const [similar, setSimilar] = useState<Movie[]>([])
+    const [cast, setCast] = useState<any[]>([]);
+    const [crew, setCrew] = useState<any[]>([]);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [isSeasonOpen, setIsSeasonOpen] = useState(false)
@@ -46,6 +53,8 @@ export default function Movie() {
     const [selectedEpisode, setSelectedEpisode] = useState(1)
 
     const dropdownRef = useRef<HTMLDivElement>(null)
+    console.log(id)
+    console.log(mediaType)
 
     // Fetch movie / show info
     useEffect(() => {
@@ -55,6 +64,7 @@ export default function Movie() {
                 {headers: headersTMDB}
             )
             setMovie(res.data)
+            console.log(res.data)
         }
 
         fetchMovie()
@@ -87,6 +97,41 @@ export default function Movie() {
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
 
+    useEffect(() => {
+        async function fetchSimilar() {
+            const res = await axios.get(
+                `https://api.themoviedb.org/3/${mediaType}/${id}/similar`,
+                {headers: headersTMDB}
+            )
+            setSimilar(res.data.results)
+        }
+
+        fetchSimilar()
+    }, []);
+
+    useEffect(() => {
+        const fetchCredits = async () => {
+            try {
+                const {data} = await axios.get(
+                    `https://api.themoviedb.org/3/movie/${id}/credits`,
+                    {
+                        headers: headersTMDB
+                    }
+                );
+
+                setCast(data.cast);
+                setCrew(data.crew);
+            } catch (err) {
+                console.error(err);
+                setCast([]);
+                setCrew([]);
+            }
+        };
+
+        fetchCredits();
+    }, [id]);
+
+
     if (!movie) {
         return (
             <div className="bg-[#121212] min-h-screen text-white flex items-center justify-center">
@@ -94,6 +139,8 @@ export default function Movie() {
             </div>
         )
     }
+
+    console.log({cast: cast, crew: crew})
 
     return (
         <div className="bg-[#121212] min-h-screen text-white pb-20">
@@ -125,12 +172,23 @@ export default function Movie() {
                     </h1>
 
                     <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6 text-sm font-medium">
-            <span className="bg-yellow-500 text-black px-3 py-1 rounded-full">
-              ⭐ {movie.vote_average}
-            </span>
-                        <span className="bg-gray-800 border border-gray-700 px-3 py-1 rounded-full">
-              {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
-            </span>
+                        <span
+                            className="bg-gray-800 border border-gray-700 px-3 py-1 rounded-full flex items-center gap-1">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400"/>
+                            {Math.round(movie.vote_average)}
+                        </span>
+
+                        <span
+                            className="bg-gray-800 border border-gray-700 px-3 py-1 rounded-full flex items-center gap-1">
+                          <Calendar className="w-4 h-4 text-gray-300"/>
+                            {movie.release_date
+                                ? new Date(movie.release_date).toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                })
+                                : "N/A"}
+                        </span>
                     </div>
 
                     <p className="text-gray-300 text-lg mb-8 max-w-3xl leading-relaxed overflow-hidden"
@@ -270,6 +328,9 @@ export default function Movie() {
                     </div>
                 </div>
             </div>
+            <CastSection cast={cast} crew={crew}/>
+            <MovieRowBasic title={"Similar"} Cards={similar}/>
         </div>
+
     )
 }
