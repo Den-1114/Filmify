@@ -9,17 +9,6 @@ interface MovieSlide {
     overview: string;
 }
 
-// const getUniqueRandomNumbers = (count: number, min: number, max: number): number[] => {
-//     const numbers = new Set<number>();
-//
-//     while (numbers.size < count) {
-//         const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-//         numbers.add(randomNum);
-//     }
-//
-//     return Array.from(numbers);
-// };
-
 
 export default function HeroCarousel() {
     const [current, setCurrent] = useState(0);
@@ -50,7 +39,7 @@ export default function HeroCarousel() {
             "https://api.themoviedb.org/3/trending/movie/day",
             {headers: headersTMDB}
         )
-            .then((res) => setSlides(res.data.results.slice(0, 6)))
+            .then((res) => {setSlides(res.data.results.slice(0, 6))})
             .catch((err) => console.error(err));
 
         console.log(slides);
