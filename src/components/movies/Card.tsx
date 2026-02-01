@@ -1,17 +1,27 @@
-export default function Card({ title, poster, id, mediaType }: { title: string; poster: string; id: string, mediaType: string }) {
+export default function Card({title, poster, id, mediaType}: {
+    title: string;
+    poster: string;
+    id: string,
+    mediaType: string
+}) {
     return (
         <div
-            className="hover:scale-[99%] duration-150 max-w-44 cursor-pointer"
+            className="group relative shrink-0 hover:scale-105 duration-200 w-32 sm:w-40 md:w-44 lg:w-48 h-48 sm:h-60 md:h-64 lg:h-72 cursor-pointer rounded-lg overflow-hidden shadow-md"
             onClick={() => {
                 window.location.href = `/video/${id}/${mediaType}/`;
             }}
         >
-            <div className="w-32 sm:w-40 md:w-44 lg:w-48 h-48 sm:h-60 md:h-64 lg:h-72 rounded-md overflow-hidden">
-                <img src={poster} className="w-full h-full object-cover" alt="IMAGE" />
-            </div>
+            {/* Poster Image */}
+            <img
+                src={poster}
+                className="w-full h-full object-cover"
+                alt={title}
+            />
 
-            <div className="mt-2 flex flex-col w-full">
-                <h1 className="text-xl font-bold wrap-break-words whitespace-normal">
+            {/* Title Overlay*/}
+            <div
+                className="absolute bottom-0 w-full p-3 bg-linear-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
+                <h1 className="text-white text-sm font-bold leading-tight drop-shadow-md">
                     {title}
                 </h1>
             </div>

@@ -2,6 +2,7 @@ html, body, #root {
     min-height: 100%;
     color: white;
     overflow-x: hidden;
+    --primary: #e7000b;
 
     background: radial-gradient(at 0% 0%, rgba(72, 61, 139, 0.3) 0px, transparent 50%),
     radial-gradient(at 100% 100%, rgba(0, 206, 209, 0.15) 0px, transparent 50%),
@@ -40,12 +41,35 @@ html, body, #root {
     background-color: transparent; /* keeps the track invisible */
 }
 
+.netflix-text {
+    -webkit-text-stroke: 1.5px #db0000; /* Standard Red */
+    color: black;
+    font-weight: 900; /* Extra Black weight */
+    paint-order: stroke fill; /* KEY FIX: Draws fill on top of stroke */
+}
+
+.top10-font {
+    font-family: Poppins, sans-serif;
+}
+
+.text-outline {
+    -webkit-text-stroke: 2px;
+    -webkit-text-fill-color: oklch(.188409 .00829 17.911578);
+    color: var(--primary, oklch(69.7764% .135385 168.327128deg));
+}
+
+.letter-shadow-r {
+    -webkit-mask-image: linear-gradient(90deg, oklch(0 0 0deg) 36%, transparent);
+    mask-image: linear-gradient(90deg, oklch(0 0 0deg) 36%, transparent);
+}
+
 @layer utilities {
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
 }

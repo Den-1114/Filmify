@@ -39,7 +39,9 @@ export default function HeroCarousel() {
             "https://api.themoviedb.org/3/trending/movie/day",
             {headers: headersTMDB}
         )
-            .then((res) => {setSlides(res.data.results)})
+            .then((res) => {
+                setSlides(res.data.results)
+            })
             .catch((err) => console.error(err));
 
         console.log(slides);
@@ -135,13 +137,17 @@ export default function HeroCarousel() {
                             >
                                 <button
                                     className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold duration-200"
-                                    onClick={() => {window.location.href = `/watch/${slide.id}/movie`}}
+                                    onClick={() => {
+                                        window.location.href = `/watch/${slide.id}/movie`
+                                    }}
                                 >
                                     <Play size={20} fill="currentColor"/> Play Now
                                 </button>
                                 <button
                                     className="flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors"
-                                    onClick={() => {window.location.href = `/video/${slide.id}/movie`}}
+                                    onClick={() => {
+                                        window.location.href = `/video/${slide.id}/movie`
+                                    }}
                                 >
                                     <Info size={20}/> More Info
                                 </button>
@@ -182,5 +188,6 @@ export default function HeroCarousel() {
                 ))}
             </div>
         </section>
+
     );
 };

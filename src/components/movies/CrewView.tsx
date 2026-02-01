@@ -30,7 +30,7 @@ export default function CastSection({cast, crew}: { cast: any[]; crew: any[] }) 
                             >
                                 {/* Circular image container with red border */}
                                 <div
-                                    className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-3 rounded-full overflow-hidden bg-[#18181b] shadow-lg ring-3 ring-red-600 transition-all duration-300 group-hover:ring-red-500 group-hover:ring-4 group-hover:shadow-red-600/30 group-hover:shadow-xl">
+                                    className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-3 rounded-full overflow-hidden bg- shadow-lg ring-3 ring-red-600 transition-all duration-300 group-hover:ring-red-500 group-hover:ring-4 group-hover:shadow-red-600/30 group-hover:shadow-xl">
                                     {person.profile_path ? (
                                         <img
                                             src={`https://image.tmdb.org/t/p/w300${person.profile_path}`}

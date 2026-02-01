@@ -54,7 +54,7 @@ export default function MovieRow({
 
     return (
         <div className="flex flex-col gap-8 w-full ml-20 pr-20 mt-20">
-            <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
+            <h2 className="text-3xl font-bold mb-6 flex items-center gap-2 ">
                 <span className="w-1 h-10 bg-red-600 rounded-full"></span>
                 {title}
             </h2>
