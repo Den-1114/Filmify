@@ -12,7 +12,6 @@ function Main() {
             <HeroCarousel/>
             <div className="w-full gap-4 pt-8">
                 <TopMovies/>
-                <MovieRow title="Trending" theme="trending" time="week"/>
                 <MovieRow title="Top Rated" theme="top_rated" time="week"/>
                 <MovieRow title="Now Playing" theme="now_playing" time="week"/>
                 <MovieRow title="Upcoming" theme="upcoming" time="week"/>

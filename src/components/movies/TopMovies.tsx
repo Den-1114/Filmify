@@ -28,6 +28,14 @@ export default function TopMovies() {
         getTop10()
     }, []);
 
+    if (!top10) {
+        return (
+            <div className="bg-[#121212] min-h-screen text-white flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
+            </div>
+        )
+    }
+
     return (
         <div className="ml-8">
             <div className="flex items-center gap-2 sm:gap-4 p-6 w-fit select-none overflow-hidden">
