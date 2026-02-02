@@ -19,9 +19,16 @@ export default function TopMovies() {
 
     const [top10, setTop10] = useState<Movie[]>([]);
 
+    const headersTMDB = {
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_KEY}`,
+        "Content-Type": "application/json",
+    };
+
     useEffect(() => {
         async function getTop10() {
-            const res = await axios.get("https://api.themoviedb.org/3/trending/movie/day");
+            const res = await axios.get("https://api.themoviedb.org/3/trending/movie/day", {
+                headers: headersTMDB
+            });
             setTop10(res.data.results.slice(0, 10))
         }
 
