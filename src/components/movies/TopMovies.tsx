@@ -63,7 +63,7 @@ export default function TopMovies() {
                     </h3>
                 </div>
             </div>
-            <div className="flex flex-row gap-8 w-full p-4 overflow-x-auto duration-150 overflow-x">
+            <div className="flex flex-row gap-8 w-full p-4 overflow-x-auto duration-150 overflow-x overflow-y-hidden">
                 {top10.map((movie: Movie, index: number) => (
                     <div key={movie.id} className="relative flex items-end gap-4 ">
                         <p className="font-bold text-red-600 text-8xl sm:text-9xl text-outline hover:scale-105 duration-200">
