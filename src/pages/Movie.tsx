@@ -9,6 +9,7 @@ import api from "../api.ts";
 
 type Movie = {
     id: number
+    name: string
     title: string
     overview: string
     backdrop_path: string
@@ -19,6 +20,7 @@ type Movie = {
     number_of_seasons: number
     media_type: string
 }
+
 
 type Episode = {
     id: number
@@ -304,7 +306,7 @@ export default function Movie() {
                 </div>
             </div>
             <CastSection cast={cast} crew={crew}/>
-            <MovieRowBasic title={"Similar"} Cards={similar} mediaType={mediaType}/>
+            <MovieRowBasic title={"Similar"} Cards={similar} mediaType={mediaType!}/>
         </div>
 
     )
