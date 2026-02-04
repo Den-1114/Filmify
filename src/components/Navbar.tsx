@@ -1,6 +1,5 @@
 import {useState} from "react";
 import api from "../api.ts";
-import axios from "axios";
 
 // Define a type for the movie to avoid using 'any'
 interface Movie {
