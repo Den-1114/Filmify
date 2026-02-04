@@ -1,4 +1,5 @@
 import {useState} from "react";
+import api from "../api.ts";
 import axios from "axios";
 
 // Define a type for the movie to avoid using 'any'
@@ -17,11 +18,6 @@ export default function Navbar() {
     const [isLoading, setIsLoading] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
-    // NOTE: In production, move this key to an environment variable (.env)
-    const headersTMDB = {
-        "Authorization": `Bearer ${import.meta.env.VITE_TMDB_KEY}`,
-        "Content-Type": "application/json",
-    };
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!query.trim()) return;
@@ -30,13 +26,7 @@ export default function Navbar() {
         setResults([]); // Clear previous results while loading
 
         try {
-            const response = await axios.get(
-                "https://api.themoviedb.org/3/search/multi",
-                {
-                    headers: headersTMDB,
-                    params: {query},
-                }
-            );
+            const response = await api.get(`/search/${query}`);
 
             const filteredResults = response.data.results.filter(
                 (item: Movie) => item.media_type === "movie" || item.media_type === "tv"

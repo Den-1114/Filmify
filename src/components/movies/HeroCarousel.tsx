@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import {ChevronLeft, ChevronRight, Play, Info} from 'lucide-react';
-import axios from "axios";
+import api from "../../api.ts";
 
 interface MovieSlide {
     id: number;
@@ -14,11 +14,6 @@ export default function HeroCarousel() {
     const [current, setCurrent] = useState(0);
     const [slides, setSlides] = useState<MovieSlide[]>([]);
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-    const headersTMDB = {
-        Authorization: `Bearer ${import.meta.env.VITE_TMDB_KEY}`,
-        "Content-Type": "application/json",
-    };
 
 
     // Auto-rotate logic
@@ -35,16 +30,10 @@ export default function HeroCarousel() {
     }, [isAutoPlaying, slides.length]);
 
     useEffect(() => {
-        axios.get(
-            "https://api.themoviedb.org/3/trending/movie/day",
-            {headers: headersTMDB}
-        )
-            .then((res) => {
-                setSlides(res.data.results)
-            })
-            .catch((err) => console.error(err));
+        api.get("/rows/trending/day")
+            .then(res => setSlides(res.data.results))
+            .catch(err => console.log(err));
 
-        console.log(slides);
     }, []);
 
     const nextSlide = useCallback(() => {

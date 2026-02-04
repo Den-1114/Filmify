@@ -1,11 +1,12 @@
 import Navbar from "../components/Navbar"
 import {useParams, Link} from "react-router-dom"
 import {useEffect, useState, useRef, useContext} from "react"
-import axios from "axios"
 import {GlobalContext} from "../GlobalContext.ts"
 import {Play, Star, Calendar} from "lucide-react";
 import MovieRowBasic from "../components/movies/MovieRowBasic.tsx";
 import CastSection from "../components/movies/CrewView.tsx";
+import api from "../api.ts";
+
 type Movie = {
     id: number
     title: string
@@ -26,18 +27,12 @@ type Episode = {
 }
 
 
-
 export default function Movie() {
     const context = useContext(GlobalContext)
     if (!context) throw new Error("GlobalContext must be used inside GlobalProvider")
     const {servers} = context
 
     const {id, mediaType} = useParams<{ id: string; mediaType: string }>()
-
-    const headersTMDB = {
-        Authorization: `Bearer ${import.meta.env.VITE_TMDB_KEY}`,
-        "Content-Type": "application/json",
-    }
 
     const [movie, setMovie] = useState<Movie>()
     const [episodes, setEpisodes] = useState<Episode[]>([])
@@ -56,34 +51,48 @@ export default function Movie() {
     console.log(id)
     console.log(mediaType)
 
-    // Fetch movie / show info
     useEffect(() => {
-        async function fetchMovie() {
-            const res = await axios.get(
-                `https://api.themoviedb.org/3/${mediaType}/${id}`,
-                {headers: headersTMDB}
-            )
-            setMovie(res.data)
-            console.log(res.data)
-        }
 
-        fetchMovie()
+        api.get(`/${mediaType}/${id}`)
+            .then(res => setMovie(res.data))
+            .catch(err => console.log(err))
+
     }, [id, mediaType])
 
-    // Fetch episodes when season changes
     useEffect(() => {
         if (mediaType !== "tv") return
 
-        async function fetchEpisodes() {
-            const res = await axios.get(
-                `https://api.themoviedb.org/3/tv/${id}/season/${selectedSeason}`,
-                {headers: headersTMDB}
-            )
-            setEpisodes(res.data.episodes)
-        }
+        api.get(`/episodes/${id}/${selectedSeason}`)
+            .then(res => setEpisodes(res.data.episodes))
+            .catch(err => console.log(err))
 
-        fetchEpisodes()
     }, [id, selectedSeason, mediaType])
+
+    useEffect(() => {
+
+        api.get(`/similar/${mediaType}/${id}`)
+            .then(res => {
+                console.log(res.data.results)
+                setSimilar(res.data.results)
+            })
+            .catch(err => console.log(err))
+
+    }, []);
+
+    useEffect(() => {
+
+        api.get(`/credits/${mediaType}/${id}`)
+            .then(res => {
+                setCast(res.data.cast);
+                setCrew(res.data.crew);
+            })
+            .catch(err => {
+                console.error(err);
+                setCast([]);
+                setCrew([]);
+            })
+
+    }, [id]);
 
     // Close dropdown on outside click
     useEffect(() => {
@@ -96,40 +105,6 @@ export default function Movie() {
         document.addEventListener("mousedown", handleClickOutside)
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
-
-    useEffect(() => {
-        async function fetchSimilar() {
-            const res = await axios.get(
-                `https://api.themoviedb.org/3/${mediaType}/${id}/similar`,
-                {headers: headersTMDB}
-            )
-            setSimilar(res.data.results)
-        }
-
-        fetchSimilar()
-    }, []);
-
-    useEffect(() => {
-        const fetchCredits = async () => {
-            try {
-                const {data} = await axios.get(
-                    `https://api.themoviedb.org/3/movie/${id}/credits`,
-                    {
-                        headers: headersTMDB
-                    }
-                );
-
-                setCast(data.cast);
-                setCrew(data.crew);
-            } catch (err) {
-                console.error(err);
-                setCast([]);
-                setCrew([]);
-            }
-        };
-
-        fetchCredits();
-    }, [id]);
 
 
     if (!movie) {
@@ -329,7 +304,7 @@ export default function Movie() {
                 </div>
             </div>
             <CastSection cast={cast} crew={crew}/>
-            <MovieRowBasic title={"Similar"} Cards={similar}/>
+            <MovieRowBasic title={"Similar"} Cards={similar} mediaType={mediaType}/>
         </div>
 
     )

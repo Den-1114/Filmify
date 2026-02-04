@@ -1,6 +1,6 @@
 import Card from "./Card.tsx";
-import axios from "axios";
 import {useEffect, useState} from "react";
+import api from "../../api.ts";
 
 type Movie = {
     id: string;
@@ -9,41 +9,21 @@ type Movie = {
     media_type: "movie";
 };
 
-export default function MovieRow({
-                                     title,
-                                     theme,
-                                     time,
-                                 }: {
+type MovieRowProps = {
     title: string;
     theme: string;
     time: string;
-}) {
-    const headersTMDB = {
-        Authorization: `Bearer ${import.meta.env.VITE_TMDB_KEY}`,
-        "Content-Type": "application/json",
-    };
+}
 
+export default function MovieRow({title, theme, time}: MovieRowProps) {
     const [movies, setMovies] = useState<any[]>([]);
 
-    let url = "";
-    if (theme === "trending") {
-        url = `https://api.themoviedb.org/3/trending/movie/${time}`;
-    } else {
-        url = `https://api.themoviedb.org/3/movie/${theme}`;
-    }
-
     useEffect(() => {
-        async function fetchTrending() {
-            try {
-                const response = await axios.get(url, {headers: headersTMDB});
-                setMovies(response.data.results);
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        api.get(`/rows/${theme}/${time}`)
+            .then(res => setMovies(res.data.results))
+            .catch(err => console.log(err));
 
-        fetchTrending();
-    }, [url]);
+    }, []);
 
     const movieInfo: Movie[] = movies.map((movie) => ({
         id: movie.id,

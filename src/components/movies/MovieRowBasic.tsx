@@ -2,6 +2,7 @@ import Card from "./Card.tsx";
 
 type Movie = {
     id: number
+    name: string
     title: string
     overview: string
     backdrop_path: string
@@ -15,10 +16,11 @@ type Movie = {
 
 type MovieRowProps = {
     title: string;
+    mediaType: string;
     Cards: Movie[];
 };
 
-export default function MovieRowBasic({title, Cards}: MovieRowProps) {
+export default function MovieRowBasic({title, mediaType, Cards}: MovieRowProps) {
     console.log(Cards);
 
     return (
@@ -32,9 +34,9 @@ export default function MovieRowBasic({title, Cards}: MovieRowProps) {
                     {Cards.map((card) => (
                         <Card
                             key={card.id}
-                            title={card.title}
+                            title={mediaType === "movie" ? card.title : card.name}
                             poster={`https://image.tmdb.org/t/p/original${card.poster_path}`}
-                            mediaType="movie"
+                            mediaType={mediaType}
                             id={String(card.id)}
                         />
                     ))}

@@ -15,6 +15,8 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
     { name: "Vidfast", id: "3", url: "https://vidfast.pro/" }
   ];
 
+  
+
   return (
     <GlobalContext.Provider value={{ servers }}>
       {children}
