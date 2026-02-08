@@ -19,6 +19,7 @@ type Movie = {
     number_of_episodes: number
     number_of_seasons: number
     media_type: string
+    first_air_date: string
 }
 
 
@@ -158,13 +159,23 @@ export default function Movie() {
                         <span
                             className="bg-gray-800 border border-gray-700 px-3 py-1 rounded-full flex items-center gap-1">
                           <Calendar className="w-4 h-4 text-gray-300"/>
-                            {movie.release_date
-                                ? new Date(movie.release_date).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                })
-                                : "N/A"}
+
+                            {
+                                (movie.media_type === "movie"
+                                    ? movie.release_date
+                                    : movie.first_air_date)
+                                    ? new Date(
+                                        movie.media_type === "movie"
+                                            ? movie.release_date
+                                            : movie.first_air_date
+                                    ).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "short",
+                                        day: "numeric",
+                                    })
+                                    : "TBA"
+                            }
+
                         </span>
                     </div>
 

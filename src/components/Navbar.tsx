@@ -2,13 +2,14 @@ import {useState} from "react";
 import api from "../api.ts";
 
 // Define a type for the movie to avoid using 'any'
-interface Movie {
+type Movie = {
     id: number;
     title: string;
     poster_path: string | null;
     release_date: string;
     name: string;
     media_type: string;
+    first_air_date: string;
 }
 
 export default function Navbar() {
@@ -207,7 +208,16 @@ export default function Navbar() {
                                             </span>
                                             <div className="flex items-center gap-2 mt-1">
                                             <span className="text-xs text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
-                                               {movie.release_date ? movie.release_date.split("-")[0] : "TBA"}
+                                               {
+                                                   movie.media_type === "movie"
+                                                       ? (movie.release_date
+                                                           ? movie.release_date.split("-")[0]
+                                                           : "TBA")
+                                                       : (movie.first_air_date
+                                                           ? movie.first_air_date.split("-")[0]
+                                                           : "TBA")
+                                               }
+
                                             </span>
                                                 <span
                                                     className="text-xs text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
