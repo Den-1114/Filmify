@@ -174,7 +174,7 @@ export default function Movie() {
                           <Calendar className="w-4 h-4 text-gray-300"/>
 
 
-                            {handleDateManagement(movie)}
+                            {handleDateManagement()}
                         </span>
                     </div>
 
