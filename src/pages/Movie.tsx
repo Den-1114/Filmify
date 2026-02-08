@@ -120,6 +120,19 @@ export default function Movie() {
 
     console.log({cast: cast, crew: crew})
 
+    function handleDateManagement() {
+        console.log(mediaType)
+        console.log(movie)
+
+        if (mediaType === "movie") {
+            console.log(movie?.release_date)
+            return movie?.release_date
+        } else {
+            return movie?.first_air_date
+        }
+    }
+
+
     return (
         <div className="bg-[#121212] min-h-screen text-white pb-20">
             <div
@@ -160,22 +173,8 @@ export default function Movie() {
                             className="bg-gray-800 border border-gray-700 px-3 py-1 rounded-full flex items-center gap-1">
                           <Calendar className="w-4 h-4 text-gray-300"/>
 
-                            {
-                                (movie.media_type === "movie"
-                                    ? movie.release_date
-                                    : movie.first_air_date)
-                                    ? new Date(
-                                        movie.media_type === "movie"
-                                            ? movie.release_date
-                                            : movie.first_air_date
-                                    ).toLocaleDateString("en-US", {
-                                        year: "numeric",
-                                        month: "short",
-                                        day: "numeric",
-                                    })
-                                    : "TBA"
-                            }
 
+                            {handleDateManagement(movie)}
                         </span>
                     </div>
 
