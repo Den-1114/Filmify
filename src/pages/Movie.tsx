@@ -1,11 +1,13 @@
-import Navbar from "../components/Navbar"
+import {Navbar} from "../components/Navbar"
 import {useParams, Link} from "react-router-dom"
 import {useEffect, useState, useRef, useContext} from "react"
 import {GlobalContext} from "../GlobalContext.ts"
-import {Play, Star, Calendar} from "lucide-react";
+import {Play, Star, Calendar, Plus, Check} from "lucide-react";
 import MovieRowBasic from "../components/movies/MovieRowBasic.tsx";
 import CastSection from "../components/movies/CrewView.tsx";
 import api from "../api.ts";
+import {addToHistory, isInWatchlist, toggleWatchlist} from "../lib/db.ts";
+import {useAuth} from "../lib/hooks.ts";
 
 type Movie = {
     id: number
@@ -50,6 +52,11 @@ export default function Movie() {
     const [selectedSeason, setSelectedSeason] = useState(1)
     const [selectedEpisode, setSelectedEpisode] = useState(1)
 
+    const [inWatchlist, setInWatchlist] = useState(false)
+    const [isWatchlistLoading, setIsWatchlistLoading] = useState(false)
+
+    const {user} = useAuth()
+
     const dropdownRef = useRef<HTMLDivElement>(null)
     console.log(id)
     console.log(mediaType)
@@ -80,7 +87,7 @@ export default function Movie() {
             })
             .catch(err => console.log(err))
 
-    }, []);
+    }, [id, mediaType]);
 
     useEffect(() => {
 
@@ -95,7 +102,7 @@ export default function Movie() {
                 setCrew([]);
             })
 
-    }, [id]);
+    }, [id, mediaType]);
 
     // Close dropdown on outside click
     useEffect(() => {
@@ -108,6 +115,24 @@ export default function Movie() {
         document.addEventListener("mousedown", handleClickOutside)
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
+
+    useEffect(() => {
+        if (user && id) {
+            isInWatchlist(Number(id), String(mediaType), user.id).then(setInWatchlist);
+        }
+    }, [id, user, mediaType]);
+
+    async function handleWatchlistToggle() {
+        if (!user) return alert("Please sign in to use the watchlist");
+
+        setIsWatchlistLoading(true);
+        const {error} = await toggleWatchlist(Number(id), String(mediaType), user.id);
+
+        if (!error) {
+            setInWatchlist(!inWatchlist);
+        }
+        setIsWatchlistLoading(false);
+    }
 
 
     if (!movie) {
@@ -211,6 +236,9 @@ export default function Movie() {
                                                 to={`/watch/${id}/${mediaType}/?serverId=${server.id}`}
                                                 className="px-4 py-3 hover:bg-gray-800 text-gray-200 hover:text-white transition"
                                                 onClick={() => {
+
+                                                    addToHistory(Number(id), String(mediaType), String(user?.id))
+
                                                     setIsDropdownOpen(false)
                                                 }}
                                             >
@@ -312,6 +340,27 @@ export default function Movie() {
                                 )}
                             </div>
                         )}
+                        <button
+                            disabled={isWatchlistLoading}
+                            onClick={handleWatchlistToggle}
+                            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold duration-200 border-2 ${
+                                inWatchlist
+                                    ? "bg-white text-black border-white hover:bg-gray-200"
+                                    : "bg-transparent text-white border-gray-600 hover:border-white"
+                            } disabled:opacity-50 disabled:cursor-not-allowed`}
+                        >
+                            {isWatchlistLoading ? (
+                                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-current"/>
+                            ) : inWatchlist ? (
+                                <>
+                                    <Check size={20}/> In Watchlist
+                                </>
+                            ) : (
+                                <>
+                                    <Plus size={20}/> Add to Watchlist
+                                </>
+                            )}
+                        </button>
                     </div>
                 </div>
             </div>

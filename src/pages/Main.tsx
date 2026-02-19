@@ -1,6 +1,6 @@
 import "../App.css";
 import MovieRow from "../components/movies/MovieRow.tsx";
-import Navbar from "../components/Navbar.tsx";
+import {Navbar} from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 import HeroCarousel from "../components/movies/HeroCarousel.tsx";
 import TopMovies from "../components/movies/TopMovies.tsx";

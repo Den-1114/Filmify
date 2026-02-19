@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/postgrest-js": "^2.97.0",
+    "@supabase/supabase-js": "^2.97.0",
     "@tailwindcss/vite": "^4.1.18",
     "axiom": "^0.37.0",
     "axios": "^1.13.2",

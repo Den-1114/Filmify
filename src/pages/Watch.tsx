@@ -1,6 +1,5 @@
 import {useParams} from "react-router-dom";
 import {useSearchParams} from "react-router-dom";
-
 import {useContext} from "react";
 import {GlobalContext} from "../GlobalContext.ts";
 
@@ -17,6 +16,7 @@ export default function Watch() {
     const url = servers[Number(serverId)]?.url;
 
     console.log(url);
+
 
     const handleBack = () => {
         window.location.href = `/video/${id}/${mediaType}`;
