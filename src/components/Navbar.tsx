@@ -5,14 +5,12 @@ import {
     Search,
     X,
     User,
-    Settings,
     Bookmark,
     Clock,
     LogOut,
     LogIn,
     UserPlus,
     Info,
-    Star,
     ChevronRight,
 } from "lucide-react";
 import api from "../api.ts";
