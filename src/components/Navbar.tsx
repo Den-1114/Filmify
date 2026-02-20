@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import {
     Home,
     Search,
@@ -16,7 +16,7 @@ import {
     ChevronRight,
 } from "lucide-react";
 import api from "../api.ts";
-import { useAuth } from "../lib/hooks.ts";
+import {useAuth} from "../lib/hooks.ts";
 
 type Movie = {
     id: number;
@@ -34,7 +34,7 @@ export function Navbar() {
     const [isLoading, setIsLoading] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const { user, signOut } = useAuth();
+    const {user, signOut} = useAuth();
 
     const [profileMounted, setProfileMounted] = useState(false);
     const [profileVisible, setProfileVisible] = useState(false);
@@ -129,14 +129,16 @@ export function Navbar() {
     };
 
     return (
-        <nav className="fixed top-0 w-full z-50 flex flex-row items-center justify-between px-6 py-4 transition-all duration-500 ease-in-out">
+        <nav
+            className="fixed top-0 w-full z-50 flex flex-row items-center justify-between px-6 py-4 transition-all duration-500 ease-in-out">
             {/* Home Button */}
             <Link
                 to="/"
                 className="group relative p-2.5 bg-zinc-800/80 hover:bg-red-600 rounded-full text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-600/25 active:scale-95"
             >
-                <Home className="w-5 h-5 transition-transform duration-300" />
-                <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 pointer-events-none">
+                <Home className="w-5 h-5 transition-transform duration-300"/>
+                <span
+                    className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 pointer-events-none">
                     Home
                 </span>
             </Link>
@@ -175,9 +177,9 @@ export function Navbar() {
                         className={`w-full bg-zinc-900/80 backdrop-blur-md text-white border pl-11 pr-24 py-3 rounded-full
                             outline-none placeholder:text-zinc-500 transition-all duration-500 shadow-lg
                             ${isFocused
-                                ? "border-red-500/50 ring-2 ring-red-600/30 shadow-red-600/10 bg-zinc-900/95 scale-[1.02]"
-                                : "border-white/10 hover:border-white/20 hover:bg-zinc-900/90"
-                            }`}
+                            ? "border-red-500/50 ring-2 ring-red-600/30 shadow-red-600/10 bg-zinc-900/95 scale-[1.02]"
+                            : "border-white/10 hover:border-white/20 hover:bg-zinc-900/90"
+                        }`}
                     />
 
                     {/* Right Side Actions */}
@@ -193,7 +195,7 @@ export function Navbar() {
                                 onClick={clearSearch}
                                 className="p-1.5 text-gray-400 hover:text-white rounded-full hover:bg-white/10 transition-all duration-200 hover:rotate-90 active:scale-90"
                             >
-                                <X className="w-4 h-4" />
+                                <X className="w-4 h-4"/>
                             </button>
                         </div>
 
@@ -212,10 +214,12 @@ export function Navbar() {
                             </span>
                             {isLoading && (
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    <div
+                                        className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>
                                 </div>
                             )}
-                            <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/10 to-transparent" />
+                            <div
+                                className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/10 to-transparent"/>
                         </button>
                     </div>
                 </form>
@@ -231,10 +235,11 @@ export function Navbar() {
                         {isLoading && (
                             <div className="p-6 flex flex-col items-center gap-3">
                                 <div className="relative">
-                                    <div className="w-8 h-8 border-2 border-red-600/30 border-t-red-600 rounded-full animate-spin" />
+                                    <div
+                                        className="w-8 h-8 border-2 border-red-600/30 border-t-red-600 rounded-full animate-spin"/>
                                     <div
                                         className="absolute inset-0 w-8 h-8 border-2 border-transparent border-b-red-400/50 rounded-full animate-spin"
-                                        style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
+                                        style={{animationDirection: "reverse", animationDuration: "1.5s"}}
                                     />
                                 </div>
                                 <span className="text-gray-400 text-sm animate-pulse">Searching TMDb...</span>
@@ -264,7 +269,8 @@ export function Navbar() {
                                         onClick={() => handleResultClick(movie.id, movie.media_type)}
                                     >
                                         {/* Poster */}
-                                        <div className="w-10 h-14 shrink-0 bg-zinc-800 rounded-md overflow-hidden ring-1 ring-white/5 group-hover/item:ring-red-500/30 transition-all duration-300">
+                                        <div
+                                            className="w-10 h-14 shrink-0 bg-zinc-800 rounded-md overflow-hidden ring-1 ring-white/5 group-hover/item:ring-red-500/30 transition-all duration-300">
                                             {movie.poster_path ? (
                                                 <img
                                                     src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
@@ -272,7 +278,8 @@ export function Navbar() {
                                                     className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500"
                                                 />
                                             ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-xs text-gray-500">
+                                                <div
+                                                    className="w-full h-full flex items-center justify-center text-xs text-gray-500">
                                                     🎞️
                                                 </div>
                                             )}
@@ -280,12 +287,14 @@ export function Navbar() {
 
                                         {/* Info */}
                                         <div className="flex flex-col text-left overflow-hidden flex-1">
-                                            <span className="text-white text-sm font-medium truncate group-hover/item:text-red-400 transition-colors duration-200">
+                                            <span
+                                                className="text-white text-sm font-medium truncate group-hover/item:text-red-400 transition-colors duration-200">
                                                 {movie.title}
                                                 {movie.name}
                                             </span>
                                             <div className="flex items-center gap-2 mt-1">
-                                                <span className="text-xs text-zinc-400 bg-zinc-800/80 px-1.5 py-0.5 rounded transition-colors duration-200 group-hover/item:bg-zinc-700">
+                                                <span
+                                                    className="text-xs text-zinc-400 bg-zinc-800/80 px-1.5 py-0.5 rounded transition-colors duration-200 group-hover/item:bg-zinc-700">
                                                     {movie.media_type === "movie"
                                                         ? movie.release_date
                                                             ? movie.release_date.split("-")[0]
@@ -307,7 +316,8 @@ export function Navbar() {
                                         </div>
 
                                         {/* Arrow */}
-                                        <ChevronRight className="w-4 h-4 text-zinc-600 group-hover/item:text-red-400 transition-all duration-300 group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100" />
+                                        <ChevronRight
+                                            className="w-4 h-4 text-zinc-600 group-hover/item:text-red-400 transition-all duration-300 group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100"/>
                                     </div>
                                 ))}
                             </div>
@@ -322,9 +332,9 @@ export function Navbar() {
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className={`group relative p-2.5 rounded-full text-white transition-all duration-300 hover:scale-105 active:scale-95
                         ${isProfileOpen
-                            ? "bg-red-600 shadow-lg shadow-red-600/25"
-                            : "bg-zinc-800/80 hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/25"
-                        }`}
+                        ? "bg-red-600 shadow-lg shadow-red-600/25"
+                        : "bg-zinc-800/80 hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/25"
+                    }`}
                 >
                     <div
                         className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${
@@ -333,9 +343,9 @@ export function Navbar() {
                     />
 
                     {isProfileOpen ? (
-                        <X className="w-5 h-5 transition-transform duration-300 scale-90" />
+                        <X className="w-5 h-5 transition-transform duration-300 scale-90"/>
                     ) : (
-                        <User className="w-5 h-5 transition-transform duration-300 group-hover:scale-105" />
+                        <User className="w-5 h-5 transition-transform duration-300 group-hover:scale-105"/>
                     )}
 
                     <span
@@ -358,19 +368,24 @@ export function Navbar() {
                             <>
                                 {/* Profile Header */}
                                 <div className="p-5 relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-linear-to-br from-red-600/20 via-purple-600/10 to-transparent" />
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl" />
+                                    <div className="absolute inset-0 bg-linear-to-br from-red-600/20 to-transparent"/>
+                                    <div
+                                        className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl"/>
 
                                     <div className="relative">
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="relative group/avatar">
-                                                    <div className="absolute -inset-1 bg-linear-to-r from-red-500 via-purple-500 to-red-500 rounded-full opacity-75 blur-sm group-hover/avatar:opacity-100 transition-opacity duration-300" />
-                                                    <div className="relative w-14 h-14 rounded-full bg-linear-to-br from-red-500 to-red-700 flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-[#18181b] transition-transform duration-300 group-hover/avatar:scale-105">
+                                                    <div
+                                                        className="absolute -inset-1 bg-linear-to-r from-red-500 via-purple-500 to-red-500 rounded-full opacity-75 blur-sm group-hover/avatar:opacity-100 transition-opacity duration-300"/>
+                                                    <div
+                                                        className="relative w-14 h-14 rounded-full bg-linear-to-br from-red-500 to-red-700 flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-[#18181b] transition-transform duration-300 group-hover/avatar:scale-105">
                                                         {user?.email?.charAt(0).toUpperCase() || "U"}
                                                     </div>
-                                                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-[3px] border-[#18181b]">
-                                                        <div className="w-full h-full bg-green-400 rounded-full animate-ping opacity-75" />
+                                                    <div
+                                                        className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-[3px] border-[#18181b]">
+                                                        <div
+                                                            className="w-full h-full bg-green-400 rounded-full animate-ping opacity-75"/>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col">
@@ -381,57 +396,33 @@ export function Navbar() {
                                                         {user?.email}
                                                     </span>
                                                     <div className="flex items-center gap-1.5 mt-1">
-                                                        <span className="flex items-center gap-1 text-[10px] text-green-400 font-medium">
-                                                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                                                        <span
+                                                            className="flex items-center gap-1 text-[10px] text-green-400 font-medium">
+                                                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full"/>
                                                             Online
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <button
-                                                onClick={() => {
-                                                    window.location.href = "/settings";
-                                                    setIsProfileOpen(false);
-                                                }}
-                                                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all duration-200"
-                                            >
-                                                <Settings className="w-4 h-4" />
-                                            </button>
                                         </div>
 
-                                        {/* Membership Badge */}
-                                        <div className="flex items-center gap-2">
-                                            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-linear-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-full">
-                                                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                                                <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-wide">
-                                                    Premium
-                                                </span>
-                                            </div>
-                                            <span className="text-[10px] text-zinc-500">Member since {new Date(user?.created_at).getFullYear()}</span>
-                                        </div>
+
                                     </div>
                                 </div>
 
                                 {/* Divider */}
-                                <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent mx-4" />
+                                <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent mx-4"/>
 
                                 {/* Account Menu */}
                                 <div className="py-2">
                                     <div className="px-4 py-2">
-                                        <span className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">
+                                        <span
+                                            className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">
                                             Account
                                         </span>
                                     </div>
 
                                     {[
-                                        {
-                                            label: "My Profile",
-                                            description: "View and edit your profile",
-                                            href: "/profile",
-                                            icon: User,
-                                            color: "blue",
-                                        },
                                         {
                                             label: "Watchlist",
                                             description: "Movies & shows to watch",
@@ -477,7 +468,8 @@ export function Navbar() {
                                                 </div>
                                                 <div className="flex-1 text-left">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="font-medium group-hover/menu:text-white transition-colors">
+                                                        <span
+                                                            className="font-medium group-hover/menu:text-white transition-colors">
                                                             {item.label}
                                                         </span>
                                                     </div>
@@ -485,36 +477,16 @@ export function Navbar() {
                                                         {item.description}
                                                     </span>
                                                 </div>
-                                                <ChevronRight className="w-4 h-4 text-zinc-600 group-hover/menu:text-zinc-400 transition-all duration-200 opacity-0 group-hover/menu:opacity-100 -translate-x-2 group-hover/menu:translate-x-0" />
+                                                <ChevronRight
+                                                    className="w-4 h-4 text-zinc-600 group-hover/menu:text-zinc-400 transition-all duration-200 opacity-0 group-hover/menu:opacity-100 -translate-x-2 group-hover/menu:translate-x-0"/>
                                             </Link>
                                         );
                                     })}
                                 </div>
 
                                 {/* Divider */}
-                                <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent mx-4" />
+                                <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent mx-4"/>
 
-                                {/* Settings Section */}
-                                <div className="py-2">
-                                    <div className="px-4 py-2">
-                                        <span className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">
-                                            Preferences
-                                        </span>
-                                    </div>
-
-                                    <Link
-                                        to="/settings"
-                                        onClick={() => setIsProfileOpen(false)}
-                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-400 hover:bg-white/5 hover:text-zinc-200 transition-all duration-200 group/menu"
-                                        style={{
-                                            animation: profileVisible ? `fadeSlideIn 0.3s ease-out 0.36s both` : "none",
-                                        }}
-                                    >
-                                        <Settings className="w-4 h-4" />
-                                        Settings
-                                        <ChevronRight className="w-3 h-3 ml-auto text-zinc-600 group-hover/menu:text-zinc-400 transition-all duration-200 opacity-0 group-hover/menu:opacity-100 -translate-x-2 group-hover/menu:translate-x-0" />
-                                    </Link>
-                                </div>
 
                                 {/* Sign Out */}
                                 <div className="p-3 bg-white/2 border-t border-white/5">
@@ -528,7 +500,8 @@ export function Navbar() {
                                             animation: profileVisible ? `fadeSlideIn 0.3s ease-out 0.48s both` : "none",
                                         }}
                                     >
-                                        <LogOut className="w-4 h-4 group-hover/signout:translate-x-0.5 transition-transform duration-200" />
+                                        <LogOut
+                                            className="w-4 h-4 group-hover/signout:translate-x-0.5 transition-transform duration-200"/>
                                         Sign Out
                                     </button>
                                 </div>
@@ -537,17 +510,21 @@ export function Navbar() {
                             <>
                                 {/* Guest Header */}
                                 <div className="p-5 border-b border-white/10 relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-linear-to-br from-zinc-600/10 via-transparent to-zinc-800/5" />
+                                    <div
+                                        className="absolute inset-0 bg-linear-to-br from-zinc-600/10 via-transparent to-zinc-800/5"/>
                                     <div className="relative flex items-center gap-4">
                                         <div className="relative group/avatar">
-                                            <div className="w-12 h-12 rounded-full bg-linear-to-br from-zinc-600 to-zinc-800 flex items-center justify-center text-zinc-400 shadow-lg shadow-zinc-900/30 transition-transform duration-300 group-hover/avatar:scale-110">
-                                                <User className="w-6 h-6" />
+                                            <div
+                                                className="w-12 h-12 rounded-full bg-linear-to-br from-zinc-600 to-zinc-800 flex items-center justify-center text-zinc-400 shadow-lg shadow-zinc-900/30 transition-transform duration-300 group-hover/avatar:scale-110">
+                                                <User className="w-6 h-6"/>
                                             </div>
-                                            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-zinc-500 rounded-full border-2 border-[#18181b]" />
+                                            <div
+                                                className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-zinc-500 rounded-full border-2 border-[#18181b]"/>
                                         </div>
                                         <div className="flex flex-col">
                                             <span className="text-white text-sm font-semibold">Guest User</span>
-                                            <span className="text-[10px] text-zinc-500 mt-0.5 font-medium tracking-wide uppercase">
+                                            <span
+                                                className="text-[10px] text-zinc-500 mt-0.5 font-medium tracking-wide uppercase">
                                                 Not signed in
                                             </span>
                                         </div>
@@ -563,7 +540,7 @@ export function Navbar() {
                                 >
                                     <div className="flex gap-3">
                                         <div className="shrink-0">
-                                            <Info className="w-5 h-5 text-red-400" />
+                                            <Info className="w-5 h-5 text-red-400"/>
                                         </div>
                                         <p className="text-xs text-zinc-300 leading-relaxed">
                                             <span className="text-red-400 font-semibold">Sign in</span> to access your
@@ -582,7 +559,7 @@ export function Navbar() {
                                             animation: profileVisible ? `fadeSlideIn 0.3s ease-out 0.1s both` : "none",
                                         }}
                                     >
-                                        <LogIn className="w-4 h-4" />
+                                        <LogIn className="w-4 h-4"/>
                                         Sign In
                                     </Link>
 
@@ -594,18 +571,18 @@ export function Navbar() {
                                             animation: profileVisible ? `fadeSlideIn 0.3s ease-out 0.15s both` : "none",
                                         }}
                                     >
-                                        <UserPlus className="w-4 h-4" />
+                                        <UserPlus className="w-4 h-4"/>
                                         Create Account
                                     </Link>
                                 </div>
 
                                 {/* Guest Divider */}
                                 <div className="flex items-center gap-3 px-4 py-2">
-                                    <div className="flex-1 h-px bg-white/10" />
+                                    <div className="flex-1 h-px bg-white/10"/>
                                     <span className="text-[10px] text-zinc-500 font-medium uppercase tracking-wider">
                                         or continue as guest
                                     </span>
-                                    <div className="flex-1 h-px bg-white/10" />
+                                    <div className="flex-1 h-px bg-white/10"/>
                                 </div>
                             </>
                         )}

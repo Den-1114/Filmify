@@ -30,7 +30,7 @@ export default function Login() {
 
     return (
         <div className="bg-[#121212] min-h-screen text-white">
-            <div className="flex flex-col items-center justify-center w-full gap-4 pt-8">
+            <div className="flex flex-col items-center justify-centerls w-full gap-4 pt-8">
                 <Navbar/>
             </div>
 
